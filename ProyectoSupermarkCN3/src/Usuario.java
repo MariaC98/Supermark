@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 
 public class Usuario {
 
@@ -8,6 +9,8 @@ public class Usuario {
 	private String contra;
 	private int tipo_usuario;
 	private boolean tieneTarjeta;
+	private ArrayList<Producto> arrayProductos;	
+	
 	public Usuario(int id_usuario, String nombre, String apellido, String email, String contra, int tipo_usuario,
 			boolean tieneTarjeta) {
 

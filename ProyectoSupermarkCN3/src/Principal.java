@@ -1,3 +1,4 @@
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Scanner;
 
@@ -19,8 +20,49 @@ public class Principal {
 		
 		Usuario user = login.ingresar();
 		
-		if(user==null) {
-			System.out.println("Ingreso no exitoso");
+		if(user!=null) {
+			
+			//controlo si el tipo de usuario es 1 (cliente)
+			
+			System.out.println("Ingreso exitoso");
+			System.out.println("Ingrese una opcion: ");
+			System.out.println("1 - Seleccionar productos\r\n"
+					+ "2 - ver  listado de productos seleccionados.\r\n"
+					+ "3 - Autorizar la compra de los productos seleccionados\r\n"
+					+ "");
+			int opcion = entrada.nextInt();
+			
+			switch(opcion) {
+			case 1 : 
+				Conexion conexion = new Conexion();//realizo la conexion
+				
+				String sql = "select nombre_producto, precio_unit_producto from producto;";
+				
+				ResultSet rs = conexion.devuelveConsulta(sql);
+				
+				while(rs.next()) {
+					
+					String nombre_producto = rs.getString("nombre_producto");
+					double precio = rs.getDouble("precio_unit_producto");
+					System.out.println("nombre prod: "+nombre_producto+" precio:"+precio );
+					
+				}
+				
+				
+				break;
+			case 2: 
+				//implemento...
+				break;
+			case 3: 
+				//implemento...
+				break;
+			
+			default: 
+				System.out.println("opcion incorrecta");
+			    break;
+			}
+			
+			
 		}
 		
 		
