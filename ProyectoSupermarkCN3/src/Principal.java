@@ -36,17 +36,40 @@ public class Principal {
 			case 1 : 
 				Conexion conexion = new Conexion();//realizo la conexion
 				
-				String sql = "select nombre_producto, precio_unit_producto from producto;";
-				
-				ResultSet rs = conexion.devuelveConsulta(sql);
+				String sql = "select * from categoria";
+				ResultSet rs = conexion.devuelveConsulta(sql);		
 				
 				while(rs.next()) {
 					
-					String nombre_producto = rs.getString("nombre_producto");
-					double precio = rs.getDouble("precio_unit_producto");
-					System.out.println("nombre prod: "+nombre_producto+" precio:"+precio );
+					int id_cat = rs.getInt("id_categoria");
+					String nom_cat = rs.getString("nombre_categoria");
+					System.out.println("codigo: "+id_cat);
+					System.out.println("categoria: "+nom_cat);
 					
 				}
+				
+				System.out.println("Ingrese el codigo de la categoria para avanzar... ");
+				int opc = entrada.nextInt();
+				
+				String sql2 = "select id_producto, nombre_producto, precio_unit_producto "
+						+ "from producto where id_categoria = " + "'"+opc+"';";
+				System.out.println(sql2);
+				Conexion conexion2 = new Conexion();
+				ResultSet rs2 = conexion2.devuelveConsulta(sql2);
+				
+				while(rs2.next()) {
+					
+					int id_producto = rs2.getInt("id_producto");
+					String nom_producto= rs2.getString("nombre_producto");
+					double precio = rs2.getDouble("precio_unit_producto");
+					
+					System.out.println("codigo: "+id_producto);
+					System.out.println("nombre producto: "+nom_producto);
+					System.out.println("precio: "+precio);
+					
+				}
+				
+				
 				
 				
 				break;
