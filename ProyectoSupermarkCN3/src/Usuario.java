@@ -9,7 +9,8 @@ public class Usuario {
 	private String contra;
 	private int tipo_usuario;
 	private boolean tieneTarjeta;
-	private ArrayList<Producto> arrayProductos;	
+	private Carrito carrito;
+
 	
 	public Usuario(int id_usuario, String nombre, String apellido, String email, String contra, int tipo_usuario,
 			boolean tieneTarjeta) {
@@ -22,6 +23,7 @@ public class Usuario {
 		this.contra = contra;
 		this.tipo_usuario = tipo_usuario;
 		this.tieneTarjeta = tieneTarjeta;
+		this.carrito = new Carrito();
 	}
 	public int getId_usuario() {
 		return id_usuario;
@@ -64,5 +66,16 @@ public class Usuario {
 	}
 	public void setTieneTarjeta(boolean tieneTarjeta) {
 		this.tieneTarjeta = tieneTarjeta;
-	}	
+	}
+	public Carrito getCarrito() {
+		return carrito;
+	}
+	public void setCarrito(Carrito carrito) {
+		this.carrito = carrito;
+	}
+	
+	public void agregaCarritoU(Producto p) {
+		this.carrito.agragaProducto(p);
+	}
+	
 }

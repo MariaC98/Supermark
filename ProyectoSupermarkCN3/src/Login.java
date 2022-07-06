@@ -26,7 +26,7 @@ public class Login {
 		ResultSet rs = conexion.devuelveConsulta(sql);
 		
 		while(rs.next()) {
-			System.out.println("Ingreso Exitoso!!!!");
+			System.out.println("Ingreso Exitoso!");
 			
 			int id_user=rs.getInt("id_usuario"); //nombre de columna
 			String nombre=rs.getString("nombre_usuario");

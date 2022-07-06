@@ -5,123 +5,46 @@ import java.util.Scanner;
 public class Principal {
 
 	public static void main(String[] args) throws SQLException {
-		
-		//falta el menu para registrarse o iniciar sesion 
+		Scanner entrada = new Scanner (System.in);
+		System.out.println("<<< Supermark >>>");
+		System.out.println("Ingrese una opcion: ");
+		System.out.println("1 - Ingresar\n2 - Registrarse");
+		int opcion=entrada.nextInt();
+
+		if(opcion==1) {
 		
 		System.out.println("Ingrese su email: ");
-		Scanner entrada = new Scanner (System.in);
-		String email=entrada.nextLine();
+		String email=entrada.next();
 		
 		System.out.println("Ingrese su contraseña: ");
-		Scanner entrada2 = new Scanner (System.in);
-		String contra=entrada2.nextLine();
+		String contra=entrada.next();
 		
 		Login login = new Login (email,contra);
-		
 		Usuario user = login.ingresar();
 		
-		if(user!=null) {
+		if(user!=null) { //controlo que tipo de cliente es
 			
-			//controlo si el tipo de usuario es 1 (cliente)
-			
-			System.out.println("Ingreso exitoso");
-			System.out.println("Ingrese una opcion: ");
-			System.out.println("1 - Seleccionar productos\r\n"
-					+ "2 - ver  listado de productos seleccionados.\r\n"
-					+ "3 - Autorizar la compra de los productos seleccionados\r\n"
-					+ "");
-			int opcion = entrada.nextInt();
-			
-			switch(opcion) {
-			case 1 : 
-				Conexion conexion = new Conexion();//realizo la conexion
-				
-				String sql = "select * from categoria";
-				ResultSet rs = conexion.devuelveConsulta(sql);		
-				
-				while(rs.next()) {
-					
-					int id_cat = rs.getInt("id_categoria");
-					String nom_cat = rs.getString("nombre_categoria");
-					System.out.println("codigo: "+id_cat);
-					System.out.println("categoria: "+nom_cat);
-					
-				}
-				
-				System.out.println("Ingrese el codigo de la categoria para avanzar... ");
-				int opc = entrada.nextInt();
-				
-				String sql2 = "select id_producto, nombre_producto, precio_unit_producto "
-						+ "from producto where id_categoria = " + "'"+opc+"';";
-				System.out.println(sql2);
-				Conexion conexion2 = new Conexion();
-				ResultSet rs2 = conexion2.devuelveConsulta(sql2);
-				
-				while(rs2.next()) {
-					
-					int id_producto = rs2.getInt("id_producto");
-					String nom_producto= rs2.getString("nombre_producto");
-					double precio = rs2.getDouble("precio_unit_producto");
-					
-					System.out.println("codigo: "+id_producto);
-					System.out.println("nombre producto: "+nom_producto);
-					System.out.println("precio: "+precio);
-					
-				}
-				
-				
-				
-				
-				break;
-			case 2: 
-				//implemento...
-				break;
-			case 3: 
-				//implemento...
-				break;
-			
-			default: 
-				System.out.println("opcion incorrecta");
-			    break;
+		if(user.getTipo_usuario()==1) { //1 para cliente y 2 para admin (segun mi bd)
+			InicioUsuario iniU = new InicioUsuario();
+			iniU.menu(user);
 			}
-			
-			
+		else {
+			InicioAdmin iniA = new InicioAdmin();}
+		
 		}
-		
-		
-		
-		
-		//ahora el registro 
-		
-		
-		
-		
-		
-	
-		//1 menu principal para registrarse / iniciar sesion 
-		
-		//2 para el login se instancia un objeto tipo login y se verifica si esta en la bdd
-		
-		//3 en el caso de registrarse capturar los datos e insertarlos en la tabla de usuarios
-		
-		//4 una vez logeado con exito, instanciar una clase "home o inicio" 
-
-		//5. dependiendo si es tipo admin o cliente se muestra su menu correspondiente
-		
-		//6. 
-		
-		/* Para el cliente: 
-		Registrarse.
-		Iniciar sesión.
-		Seleccionar productos
-		ver  listado de productos seleccionados.
-		Autorizar la compra de los productos seleccionados */
+		}
+		else {
+			System.out.println("Registro");
+			Registro registro1 = new Registro();
+			registro1.validaDatos();
+		}
 
 		/*Para la Administración:
 		Cargar productos a la aplicación
 		Modificar los datos de los productos cargados
 		Ver todos los usuarios que realizaron una compra
 		Ver listado de productos seleccionados por el usuario*/
-	}
+	
 
+}
 }
